@@ -85,9 +85,11 @@ void print_adapters_info(bool all, bool full) {
                     if (full) {
                         printf(CYAN "  Subnet Mask: " RESET "%s\n", pAdapter->IpAddressList.IpMask.String);
                         printf(CYAN "  Gateway: " RESET "%s\n", pAdapter->GatewayList.IpAddress.String);
-                        printf(CYAN "  DHCP Server: " RESET "%s\n", pAdapter->DhcpServer.IpAddress.String);
-                        printf(CYAN "  Lease Obtained: " RESET "%s", ctime((time_t*)&pAdapter->LeaseObtained));
-                        printf(CYAN "  Lease Expires: " RESET "%s", ctime((time_t*)&pAdapter->LeaseExpires));
+                        if (full && strcmp(pAdapter->DhcpServer.IpAddress.String, "") != 0) {
+                            printf(CYAN "  DHCP Server: " RESET "%s\n", pAdapter->DhcpServer.IpAddress.String);
+                            printf(CYAN "  Lease Obtained: " RESET "%s", ctime((time_t*)&pAdapter->LeaseObtained));
+                            printf(CYAN "  Lease Expires: " RESET "%s", ctime((time_t*)&pAdapter->LeaseExpires));
+                        }
                         printf(CYAN "  Adapter Name: " RESET "%s\n", pAdapter->AdapterName);
                     }
                 }
