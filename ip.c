@@ -9,12 +9,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
-// #include <dhcpcsdk.h>
 #include <dhcpsapi.h>
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "iphlpapi.lib")
 #pragma comment(lib, "Dhcpcsvc.lib")
+
+#define PROGRAM_VERSION "1.0.0"
 
 // ANSI escape codes for color
 #define RESET   "\033[0m"
@@ -236,7 +237,17 @@ void displayHelp() {
     printf("  -i, --if       : Print partial interface information\n");
     printf("  -f, --full     : Print full interface information\n");
     printf("  -x, --inactive : Include inactive adapters\n");
+    printf("  -v, --version  : Get version information\n");
     printf("\n");
+    printf("NB: Defaults to --if if not selection made");
+    printf("\n");
+}
+
+void display_version() {
+    printf("\n");
+    printf(" Welcome to ip v%s\n", PROGRAM_VERSION);
+    printf("\n");
+
 }
 
 
@@ -263,6 +274,10 @@ int main(int argc, char *argv[]) {
         }
         if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "/?") == 0 || strcmp(argv[i], "-?") == 0) {
             displayHelp();
+            return 0;
+        }
+        if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0) {
+            display_version();
             return 0;
         }
     }
